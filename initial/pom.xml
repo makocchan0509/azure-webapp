@@ -62,6 +62,34 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			 <plugin>
+        		<groupId>com.microsoft.azure</groupId>
+			     <artifactId>azure-webapp-maven-plugin</artifactId>
+			        <version>1.14.0</version>
+			        <configuration>
+			          <schemaVersion>v2</schemaVersion>
+			          <subscriptionId>6b3b3e32-abee-4292-a489-10a099bc2b28</subscriptionId>
+			          <resourceGroup>spring-boot-1623772524240-rg</resourceGroup>
+			          <appName>spring-boot-1623772524240</appName>
+			          <pricingTier>F1</pricingTier>
+			          <region>japaneast</region>
+			          <runtime>
+			            <os>Linux</os>
+			            <javaVersion>Java 11</javaVersion>
+			            <webContainer>Java SE</webContainer>
+			          </runtime>
+			          <deployment>
+			            <resources>
+			              <resource>
+			                <directory>${project.basedir}/target</directory>
+			                <includes>
+			                  <include>*.jar</include>
+			                </includes>
+			              </resource>
+			            </resources>
+			          </deployment>
+			        </configuration>
+      		</plugin>
 		</plugins>
 	</build>
 
