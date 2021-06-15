@@ -19,6 +19,7 @@ import masem.sample.microservice.order.dto.CustomerRequest;
 import masem.sample.microservice.order.dto.TicketCreateRequest;
 import masem.sample.microservice.order.entity.Order;
 //import masem.sample.microservice.order.messaging.IPublishMessage;
+import masem.sample.microservice.order.messaging.IPublishMessage;
 
 @Component
 public class OrderAppServiceImpl implements OrderAppService{
@@ -29,8 +30,8 @@ public class OrderAppServiceImpl implements OrderAppService{
 	@Autowired
 	OrderDomainService domainService;
 	
-//	@Autowired
-//	IPublishMessage publishMessage;
+	@Autowired
+	IPublishMessage publishMessage;
 	
 	public OrderAppServiceImpl() {
 		topicTable = new HashMap<String,String>();
@@ -59,7 +60,8 @@ public class OrderAppServiceImpl implements OrderAppService{
 		message.setType("verify");
 		message.setOrderId(order.getOrderId());
 		
-//		publishMessage.publishMessage(nextTopic, message);
+		nextTopic = "OrderSagaReply";
+		publishMessage.publishMessage(nextTopic, message);
 		
 		OrderCreateOutput output = new OrderCreateOutput();
 		output.setResult(true);
@@ -93,7 +95,7 @@ public class OrderAppServiceImpl implements OrderAppService{
 				request = req;
 			}
 			
-//			publishMessage.publishMessage(nextTopic, request);
+			publishMessage.publishMessage(nextTopic, request);
 			
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
